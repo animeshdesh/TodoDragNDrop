@@ -4,7 +4,6 @@ import "../styles/card.styles.css";
 import { Button } from "@mui/material";
 import { Draggable } from "react-beautiful-dnd";
 const Card = ({ title, index, cardTodo, onDelete }) => {
-  //   console.log(cardTodo.id.toString());
   return (
     <Draggable draggableId={cardTodo?.id.toString()} index={index}>
       {(provided) => (

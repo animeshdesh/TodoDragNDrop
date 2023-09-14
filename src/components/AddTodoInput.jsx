@@ -9,7 +9,6 @@ const AddTodoInput = ({
   return (
     <div>
       <TextField
-        //   onChange={handelNameChange}
         placeholder="Here"
         size="medium"
         inputProps={{
@@ -23,7 +22,7 @@ const AddTodoInput = ({
             height: 80,
           },
         }}
-        value={newTodoTitle} // Step 2: Controlled input value
+        value={newTodoTitle}
         onChange={handleNewTodoTitleChange}
       />
       <Button variant="contained" onClick={handelAddToDo}>

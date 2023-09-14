@@ -7,28 +7,6 @@ import { Droppable } from "react-beautiful-dnd";
 const Table = ({ todoCards, doingCards, doneCards, deleteCard }) => {
   return (
     <>
-      <div>
-        {/* <Droppable droppableId="Todo">
-          {(provided) => {
-            <div
-              className="tableContainer"
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              <h3 className="tableHeading">To Do</h3>
-              {todoCards.map((card, index) => (
-                <Card
-                  key={card.id}
-                  cardTodo={card}
-                  index={index}
-                  title={card.title}
-                  imageUrl={card.imageUrl}
-                />
-              ))}
-            </div>;
-          }}
-        </Droppable> */}
-      </div>
       <Droppable droppableId="ToDo">
         {(provided) => (
           <div
@@ -44,7 +22,6 @@ const Table = ({ todoCards, doingCards, doneCards, deleteCard }) => {
                 index={index}
                 title={card?.title}
                 onDelete={() => deleteCard(card.id, "ToDo")}
-                // imageUrl={card.imageUrl}
               />
             ))}
             {provided.placeholder}

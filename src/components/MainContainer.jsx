@@ -10,7 +10,6 @@ const MainContainer = () => {
   const [todoCards, setTodoCards] = useState([]);
   const [doingCards, setDoingCards] = useState([]);
   const [doneCards, setDoneCards] = useState([]);
-  console.log(doneCards);
 
   const saveStateToLocalStorage = (todoCards, doingCards, doneCards) => {
     const stateToSave = {
@@ -27,22 +26,20 @@ const MainContainer = () => {
 
     if (!destination) {
       console.log("No Destination Selected");
-      return; // Return early when no destination is selected
+      return;
     }
-
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
     ) {
       console.log("Same destination dropped");
-      return; // Return early when the source and destination are the same
+      return;
     }
 
     let add,
       active = [...todoCards],
       inProgress = [...doingCards],
       completed = [...doneCards];
-
     if (source.droppableId === "ToDo") {
       add = active[source.index];
       active.splice(source.index, 1);
@@ -53,7 +50,6 @@ const MainContainer = () => {
       add = completed[source.index];
       completed.splice(source.index, 1);
     }
-
     if (destination.droppableId === "ToDo") {
       active.splice(destination.index, 0, add);
     } else if (destination.droppableId === "Doing") {
@@ -61,16 +57,14 @@ const MainContainer = () => {
     } else {
       completed.splice(destination.index, 0, add);
     }
-
     setTodoCards(active);
     setDoingCards(inProgress);
     setDoneCards(completed);
-
     saveStateToLocalStorage(active, inProgress, completed);
   };
   function uniqueIdGenerator() {
-    const timestamp = new Date().getTime(); // Get a unique timestamp
-    const random = Math.floor(Math.random() * 1000); // Get a random number
+    const timestamp = new Date().getTime();
+    const random = Math.floor(Math.random() * 1000);
     return `${timestamp}-${random}`;
   }
 
@@ -79,22 +73,16 @@ const MainContainer = () => {
   };
 
   const handelAddToDo = () => {
-    // Add a new todo item to the "ToDo" column
     if (newTodoTitle.trim() === "") {
-      // Don't add empty todo items
       return;
     }
-
     const newTodo = {
-      id: uniqueIdGenerator(), // Use a unique ID generator library or function
+      id: uniqueIdGenerator(),
       title: newTodoTitle,
-      imageUrl: "URL7", // You can add a default URL or leave it empty
+      imageUrl: "URL7",
     };
 
-    // Update the existing todoCards state with the new todo item
-    setTodoCards([...todoCards, newTodo]); // Add the new todo item to the "ToDo" column
-
-    // Clear the input field
+    setTodoCards([...todoCards, newTodo]);
     setNewTodoTitle("");
     saveStateToLocalStorage([...todoCards, newTodo], doingCards, doneCards);
   };
@@ -102,7 +90,6 @@ const MainContainer = () => {
     let updatedTodoCards = [...todoCards];
     let updatedDoingCards = [...doingCards];
     let updatedDoneCards = [...doneCards];
-
     if (column === "ToDo") {
       updatedTodoCards = updatedTodoCards.filter((card) => card.id !== cardId);
     } else if (column === "Doing") {
@@ -112,12 +99,9 @@ const MainContainer = () => {
     } else if (column === "Done") {
       updatedDoneCards = updatedDoneCards.filter((card) => card.id !== cardId);
     }
-
     setTodoCards(updatedTodoCards);
     setDoingCards(updatedDoingCards);
     setDoneCards(updatedDoneCards);
-
-    // Update local storage
     saveStateToLocalStorage(
       updatedTodoCards,
       updatedDoingCards,
@@ -126,32 +110,15 @@ const MainContainer = () => {
   };
 
   useEffect(() => {
-    // Function to retrieve data from localStorage
     const getLocalStorageData = () => {
       const storedData = localStorage.getItem("todoAppData");
       return storedData ? JSON.parse(storedData) : [];
     };
-
-    // When the component mounts, try to get the state from localStorage
     const initialState = getLocalStorageData() || {
-      todoCards: [
-        { id: 1, title: "Task 1", imageUrl: "URL1" },
-        { id: 2, title: "Task 2", imageUrl: "URL2" },
-        // Add more Todo cards as needed
-      ],
-      doingCards: [
-        { id: 3, title: "Task 3", imageUrl: "URL3" },
-        { id: 4, title: "Task 4", imageUrl: "URL4" },
-        // Add more Doing cards as needed
-      ],
-      doneCards: [
-        { id: 5, title: "Task 5", imageUrl: "URL5" },
-        { id: 6, title: "Task 6", imageUrl: "URL6" },
-        // Add more Done cards as needed
-      ],
+      todoCards: [],
+      doingCards: [],
+      doneCards: [],
     };
-
-    // Initialize the state with data from localStorage
     setTodoCards(initialState.todoCards);
     setDoingCards(initialState.doingCards);
     setDoneCards(initialState.doneCards);
@@ -176,12 +143,11 @@ const MainContainer = () => {
       <div className="mainInput">
         <AddTodoInput
           handelAddToDo={handelAddToDo}
-          newTodoTitle={newTodoTitle} // Pass the new todo title to the input component
+          newTodoTitle={newTodoTitle}
           handleNewTodoTitleChange={handleNewTodoTitleChange}
         />
       </div>
     </div>
-    // </DragDropContext>
   );
 };
 
