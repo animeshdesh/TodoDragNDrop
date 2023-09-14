@@ -1,0 +1,10 @@
+.mainContainer {
+  background: linear-gradient(180deg, #1a85bb 0%, #00c7e8 100%);
+  height: 100vh;
+  border-radius: 10px;
+}
+.tableMainContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2.5rem;
+}
