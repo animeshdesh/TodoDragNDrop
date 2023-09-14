@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import "../styles/card.styles.css";
+import { Button } from "@mui/material";
 import { Draggable } from "react-beautiful-dnd";
-const Card = ({ title, index, cardTodo }) => {
-  console.log(cardTodo.id.toString());
+const Card = ({ title, index, cardTodo, onDelete }) => {
+  //   console.log(cardTodo.id.toString());
   return (
-    <Draggable draggableId={cardTodo.id.toString()} index={index}>
+    <Draggable draggableId={cardTodo?.id.toString()} index={index}>
       {(provided) => (
         <div
           className="cardContainer"
@@ -20,6 +21,7 @@ const Card = ({ title, index, cardTodo }) => {
             /> */}
           <div className="cardItems">
             <h2 className="cardTitle">{title}</h2>
+            <Button onClick={onDelete}>Delete</Button>
           </div>
         </div>
       )}

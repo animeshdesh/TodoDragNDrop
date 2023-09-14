@@ -1,16 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { React } from "react";
 import "../styles/table.styles.css";
 import Card from "./card";
 import { Droppable } from "react-beautiful-dnd";
-const Table = ({
-  todoCards,
-  doingCards,
-  doneCards,
-  setTodoCards,
-  setDoingCards,
-  setDoneCards,
-}) => {
+const Table = ({ todoCards, doingCards, doneCards, deleteCard }) => {
   return (
     <>
       <div>
@@ -43,13 +37,14 @@ const Table = ({
             {...provided.droppableProps}
           >
             <h3 className="tableHeading">To Do</h3>
-            {todoCards.map((card, index) => (
+            {todoCards?.map((card, index) => (
               <Card
-                key={card.id}
+                key={card?.id}
                 cardTodo={card}
                 index={index}
-                title={card.title}
-                imageUrl={card.imageUrl}
+                title={card?.title}
+                onDelete={() => deleteCard(card.id, "ToDo")}
+                // imageUrl={card.imageUrl}
               />
             ))}
             {provided.placeholder}
@@ -64,13 +59,13 @@ const Table = ({
             {...provided.droppableProps}
           >
             <h3 className="tableHeading">Doing</h3>
-            {doingCards.map((card, index) => (
+            {doingCards?.map((card, index) => (
               <Card
-                key={card.id}
+                key={card?.id}
                 cardTodo={card}
                 index={index}
-                title={card.title}
-                imageUrl={card.imageUrl}
+                title={card?.title}
+                onDelete={() => deleteCard(card.id, "Doing")}
               />
             ))}
             {provided.placeholder}
@@ -85,13 +80,14 @@ const Table = ({
             {...provided.droppableProps}
           >
             <h3 className="tableHeading">Done</h3>
-            {doneCards.map((card, index) => (
+            {doneCards?.map((card, index) => (
               <Card
-                key={card.id}
+                key={card?.id}
                 cardTodo={card}
                 index={index}
-                title={card.title}
-                imageUrl={card.imageUrl}
+                title={card?.title}
+                onDelete={() => deleteCard(card.id, "Done")}
+                // imageUrl={card.imageUrl}
               />
             ))}
             {provided.placeholder}
