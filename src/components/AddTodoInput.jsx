@@ -37,7 +37,7 @@ const AddTodoInput = ({
             borderRadius: "10px",
             marginTop: "10px",
             marginBottom: "10px",
-            width: { sm: "100%", md: 510 },
+            width: { sm: "100%", md: "100%" },
             "& .MuiInputBase-root": {
               height: 80,
             },

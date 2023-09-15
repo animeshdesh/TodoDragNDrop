@@ -125,13 +125,10 @@ const MainContainer = ({ name, setName }) => {
   useEffect(() => {
     const getLocalStorageData = () => {
       const storedData = localStorage.getItem("todoAppData");
-      return storedData ? JSON.parse(storedData) : [];
+      return JSON.parse(storedData);
     };
-    const initialState = getLocalStorageData() || {
-      todoCards: [],
-      doingCards: [],
-      doneCards: [],
-    };
+    const initialState = getLocalStorageData();
+
     setTodoCards(initialState.todoCards);
     setDoingCards(initialState.doingCards);
     setDoneCards(initialState.doneCards);
