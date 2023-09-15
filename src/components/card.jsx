@@ -3,6 +3,8 @@
 import "../styles/card.styles.css";
 import { Button } from "@mui/material";
 import { Draggable } from "react-beautiful-dnd";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 const Card = ({ title, index, cardTodo, onDelete }) => {
   return (
     <Draggable draggableId={cardTodo?.id.toString()} index={index}>
@@ -13,14 +15,11 @@ const Card = ({ title, index, cardTodo, onDelete }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          {/* <img
-              src="https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-              alt="Image"
-              className="cardImage"
-            /> */}
           <div className="cardItems">
             <h2 className="cardTitle">{title}</h2>
-            <Button onClick={onDelete}>Delete</Button>
+            <IconButton onClick={onDelete} color="secondary">
+              <DeleteIcon />
+            </IconButton>
           </div>
         </div>
       )}

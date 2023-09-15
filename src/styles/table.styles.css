@@ -1,7 +1,7 @@
 .tableContainer {
   width: 30%;
   min-height: 10vh;
-  background-color: #ccc;
+  background-color: #f0f0f0;
   overflow-y: auto;
   border-radius: 10px;
   display: flex;

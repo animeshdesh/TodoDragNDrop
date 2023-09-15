@@ -3,8 +3,17 @@
 import { React } from "react";
 import "../styles/table.styles.css";
 import Card from "./card";
+import AddTodoInput from "./AddTodoInput";
 import { Droppable } from "react-beautiful-dnd";
-const Table = ({ todoCards, doingCards, doneCards, deleteCard }) => {
+const Table = ({
+  todoCards,
+  doingCards,
+  doneCards,
+  deleteCard,
+  handelAddToDo,
+  newTodoTitle,
+  handleNewTodoTitleChange,
+}) => {
   return (
     <>
       <Droppable droppableId="ToDo">
@@ -24,6 +33,11 @@ const Table = ({ todoCards, doingCards, doneCards, deleteCard }) => {
                 onDelete={() => deleteCard(card.id, "ToDo")}
               />
             ))}
+            <AddTodoInput
+              handelAddToDo={handelAddToDo}
+              newTodoTitle={newTodoTitle}
+              handleNewTodoTitleChange={handleNewTodoTitleChange}
+            />
             {provided.placeholder}
           </div>
         )}

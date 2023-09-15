@@ -1,15 +1,19 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState, React, useEffect } from "react";
 import Header from "./header";
 import Table from "./Table";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import "../styles/mainContainer.styles.css";
-import AddTodoInput from "./AddTodoInput";
-const MainContainer = () => {
+import { Link } from "react-router-dom";
+
+const MainContainer = ({ name, setName }) => {
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [todoCards, setTodoCards] = useState([]);
   const [doingCards, setDoingCards] = useState([]);
   const [doneCards, setDoneCards] = useState([]);
+  //   const history = useHistory();
 
   const saveStateToLocalStorage = (todoCards, doingCards, doneCards) => {
     const stateToSave = {
@@ -79,7 +83,6 @@ const MainContainer = () => {
     const newTodo = {
       id: uniqueIdGenerator(),
       title: newTodoTitle,
-      imageUrl: "URL7",
     };
 
     setTodoCards([...todoCards, newTodo]);
@@ -109,6 +112,16 @@ const MainContainer = () => {
     );
   };
 
+  const clearAllTodos = () => {
+    setTodoCards([]);
+    setDoingCards([]);
+    setDoneCards([]);
+    localStorage.removeItem("todoAppData");
+  };
+  const clearNameAndRedirect = () => {
+    localStorage.removeItem("name");
+  };
+
   useEffect(() => {
     const getLocalStorageData = () => {
       const storedData = localStorage.getItem("todoAppData");
@@ -126,26 +139,29 @@ const MainContainer = () => {
 
   return (
     <div className="mainContainer">
-      <Header name="Animesh" />
+      <Header name={name} />
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="tableMainContainer">
           <Table
             todoCards={todoCards}
-            setTodoCards={setTodoCards}
             doingCards={doingCards}
-            setDoingCards={setDoingCards}
             doneCards={doneCards}
-            setDoneCards={setDoneCards}
             deleteCard={deleteCard}
+            handelAddToDo={handelAddToDo}
+            newTodoTitle={newTodoTitle}
+            handleNewTodoTitleChange={handleNewTodoTitleChange}
           />
         </div>
       </DragDropContext>
-      <div className="mainInput">
-        <AddTodoInput
-          handelAddToDo={handelAddToDo}
-          newTodoTitle={newTodoTitle}
-          handleNewTodoTitleChange={handleNewTodoTitleChange}
-        />
+      <div className="mainButtonContainer">
+        <button className="mainButton" onClick={() => clearAllTodos()}>
+          <div>Clear All ToDo's</div>
+        </button>
+        {/* <Link to="/">
+          <button className="mainButton" onClick={clearNameAndRedirect}>
+            <div>Log out</div>
+          </button>
+        </Link> */}
       </div>
     </div>
   );
