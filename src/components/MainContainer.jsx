@@ -1,10 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState, React, useEffect } from "react";
+import { useState, React } from "react";
 import Header from "./header";
 import Table from "./Table";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 import "../styles/mainContainer.styles.css";
 import { Link } from "react-router-dom";
 
@@ -13,20 +13,9 @@ const MainContainer = ({ name, setName }) => {
   const [todoCards, setTodoCards] = useState([]);
   const [doingCards, setDoingCards] = useState([]);
   const [doneCards, setDoneCards] = useState([]);
-  //   const history = useHistory();
-
-  const saveStateToLocalStorage = (todoCards, doingCards, doneCards) => {
-    const stateToSave = {
-      todoCards,
-      doingCards,
-      doneCards,
-    };
-    localStorage.setItem("todoAppData", JSON.stringify(stateToSave));
-  };
 
   const onDragEnd = (result) => {
     const { source, destination } = result;
-    console.log(source, destination);
 
     if (!destination) {
       console.log("No Destination Selected");
@@ -64,8 +53,8 @@ const MainContainer = ({ name, setName }) => {
     setTodoCards(active);
     setDoingCards(inProgress);
     setDoneCards(completed);
-    saveStateToLocalStorage(active, inProgress, completed);
   };
+
   function uniqueIdGenerator() {
     const timestamp = new Date().getTime();
     const random = Math.floor(Math.random() * 1000);
@@ -87,8 +76,8 @@ const MainContainer = ({ name, setName }) => {
 
     setTodoCards([...todoCards, newTodo]);
     setNewTodoTitle("");
-    saveStateToLocalStorage([...todoCards, newTodo], doingCards, doneCards);
   };
+
   const deleteCard = (cardId, column) => {
     let updatedTodoCards = [...todoCards];
     let updatedDoingCards = [...doingCards];
@@ -105,34 +94,17 @@ const MainContainer = ({ name, setName }) => {
     setTodoCards(updatedTodoCards);
     setDoingCards(updatedDoingCards);
     setDoneCards(updatedDoneCards);
-    saveStateToLocalStorage(
-      updatedTodoCards,
-      updatedDoingCards,
-      updatedDoneCards
-    );
   };
 
   const clearAllTodos = () => {
     setTodoCards([]);
     setDoingCards([]);
     setDoneCards([]);
-    localStorage.removeItem("todoAppData");
   };
+
   const clearNameAndRedirect = () => {
-    localStorage.removeItem("name");
+    // Handle logout logic here
   };
-
-  useEffect(() => {
-    const getLocalStorageData = () => {
-      const storedData = localStorage.getItem("todoAppData");
-      return storedData ? JSON.parse(storedData) : [];
-    };
-    const initialState = getLocalStorageData();
-
-    setTodoCards(initialState?.todoCards);
-    setDoingCards(initialState?.doingCards);
-    setDoneCards(initialState?.doneCards);
-  }, []);
 
   return (
     <div className="mainContainer">
@@ -151,7 +123,7 @@ const MainContainer = ({ name, setName }) => {
         </div>
       </DragDropContext>
       <div className="mainButtonContainer">
-        <button className="mainButton" onClick={() => clearAllTodos()}>
+        <button className="mainButton" onClick={clearAllTodos}>
           <div>Clear All ToDo's</div>
         </button>
         {/* <Link to="/">
