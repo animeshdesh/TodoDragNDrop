@@ -1,12 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import Header from "./header";
 import Table from "./Table";
 import { DragDropContext } from "react-beautiful-dnd";
 import "../styles/mainContainer.styles.css";
-import { Link } from "react-router-dom";
 
 const MainContainer = ({ name, setName }) => {
   const [newTodoTitle, setNewTodoTitle] = useState("");
@@ -101,10 +100,26 @@ const MainContainer = ({ name, setName }) => {
     setDoingCards([]);
     setDoneCards([]);
   };
+  useEffect(() => {
+    // Load data from local storage when the component mounts (on initial render)
+    const storedData = localStorage.getItem("todoAppData");
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+      setTodoCards(parsedData.todoCards || []);
+      setDoingCards(parsedData.doingCards || []);
+      setDoneCards(parsedData.doneCards || []);
+    }
+  }, []); // The empty dependency array ensures this effect runs only once on component mount
 
-  const clearNameAndRedirect = () => {
-    // Handle logout logic here
-  };
+  useEffect(() => {
+    // Save data to local storage whenever the todoCards, doingCards, or doneCards state changes
+    const stateToSave = {
+      todoCards,
+      doingCards,
+      doneCards,
+    };
+    localStorage.setItem("todoAppData", JSON.stringify(stateToSave));
+  }, [todoCards, doingCards, doneCards]);
 
   return (
     <div className="mainContainer">
@@ -126,11 +141,6 @@ const MainContainer = ({ name, setName }) => {
         <button className="mainButton" onClick={clearAllTodos}>
           <div>Clear All ToDo's</div>
         </button>
-        {/* <Link to="/">
-          <button className="mainButton" onClick={clearNameAndRedirect}>
-            <div>Log out</div>
-          </button>
-        </Link> */}
       </div>
     </div>
   );
