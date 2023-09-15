@@ -17,7 +17,7 @@ const Card = ({ title, index, cardTodo, onDelete }) => {
         >
           <div className="cardItems">
             <h2 className="cardTitle">{title}</h2>
-            <IconButton onClick={onDelete} color="secondary">
+            <IconButton onClick={onDelete} color="primary">
               <DeleteIcon />
             </IconButton>
           </div>
