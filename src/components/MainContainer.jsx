@@ -122,10 +122,10 @@ const MainContainer = ({ name, setName }) => {
   }, [todoCards, doingCards, doneCards]);
 
   return (
-    <div className="mainContainer">
+    <div className="relative bg-[#213555] min-h-screen">
       <Header name={name} />
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="tableMainContainer">
+        <div className="flex justify-evenly mt-5">
           <Table
             todoCards={todoCards}
             doingCards={doingCards}
@@ -137,8 +137,12 @@ const MainContainer = ({ name, setName }) => {
           />
         </div>
       </DragDropContext>
-      <div className="mainButtonContainer">
-        <button className="mainButton" onClick={clearAllTodos}>
+
+      <div className="flex flex-col items-center mt-10 w-[30%]">
+        <button
+          className="bg-[#4f709c] text-white text-[36px] p-5 ring-1 rounded-[10px] hover:bg-[#9D76C1] translate-x-0"
+          onClick={clearAllTodos}
+        >
           <div>Clear All ToDo's</div>
         </button>
       </div>

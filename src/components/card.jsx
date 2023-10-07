@@ -10,13 +10,13 @@ const Card = ({ title, index, cardTodo, onDelete }) => {
     <Draggable draggableId={cardTodo?.id.toString()} index={index}>
       {(provided) => (
         <div
-          className="cardContainer"
+          className="w-[95%] h-[8vh] bg-[#e5d283] m-2 border-2 rounded-[10px] transform hover:scale-102 hover:border-blue-500 "
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <div className="cardItems">
-            <h2 className="cardTitle">{title}</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="font-sans text-[25px] m-4">{title}</h2>
             <IconButton onClick={onDelete} color="primary">
               <DeleteIcon />
             </IconButton>

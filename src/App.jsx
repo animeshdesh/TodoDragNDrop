@@ -1,7 +1,7 @@
 import MainContainer from "./components/mainContainer";
 
 import CssBaseline from "@mui/material/CssBaseline";
-
+import "./index.css";
 function App() {
   return (
     <>

@@ -19,11 +19,11 @@ const Table = ({
       <Droppable droppableId="ToDo">
         {(provided) => (
           <div
-            className="tableContainer"
+            className="w-[30%] min-h-[10vh] bg-[#f0f0f0] overflow-y-auto rounded-[10px] flex flex-col items-center"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <h3 className="tableHeading">To Do</h3>
+            <h3 className="font-sans p-4 text-[25px]">To Do</h3>
             {todoCards?.map((card, index) => (
               <Card
                 key={card?.id}
@@ -45,11 +45,11 @@ const Table = ({
       <Droppable droppableId="Doing">
         {(provided) => (
           <div
-            className="tableContainer"
+            className="w-[30%] min-h-[10vh] bg-[#f0f0f0] overflow-y-auto rounded-[10px] flex flex-col items-center"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <h3 className="tableHeading">Doing</h3>
+            <h3 className="font-sans p-4 text-[25px]">Doing</h3>
             {doingCards?.map((card, index) => (
               <Card
                 key={card?.id}
@@ -66,11 +66,11 @@ const Table = ({
       <Droppable droppableId="Done">
         {(provided) => (
           <div
-            className="tableContainer"
+            className="w-[30%] min-h-[10vh] bg-[#f0f0f0] overflow-y-auto rounded-[10px] flex flex-col items-center"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <h3 className="tableHeading">Done</h3>
+            <h3 className="font-sans p-4 text-[25px]">Done</h3>
             {doneCards?.map((card, index) => (
               <Card
                 key={card?.id}
